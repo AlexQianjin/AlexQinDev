@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexQinDev.Web", "AlexQinDe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexQinDev.Web.Tests", "AlexQinDev.Web.Tests\AlexQinDev.Web.Tests.csproj", "{0BFF76F2-9A4E-47CB-88F4-8BB17FB2810A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexQinDev.WeiXin", "AlexQinDev.WeiXin\AlexQinDev.WeiXin.csproj", "{734E26C8-B132-4216-9484-C4DD008E6435}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{0BFF76F2-9A4E-47CB-88F4-8BB17FB2810A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0BFF76F2-9A4E-47CB-88F4-8BB17FB2810A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0BFF76F2-9A4E-47CB-88F4-8BB17FB2810A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{734E26C8-B132-4216-9484-C4DD008E6435}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{734E26C8-B132-4216-9484-C4DD008E6435}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{734E26C8-B132-4216-9484-C4DD008E6435}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{734E26C8-B132-4216-9484-C4DD008E6435}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
