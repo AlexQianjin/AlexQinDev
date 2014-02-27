@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexQinDev.Web.Tests", "Ale
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlexQinDev.WeiXin", "AlexQinDev.WeiXin\AlexQinDev.WeiXin.csproj", "{734E26C8-B132-4216-9484-C4DD008E6435}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DesignPattern", "DesignPattern", "{BCA3BF11-A150-4BB4-85F0-8AD8F832D204}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Decorator", "Decorator\Decorator.csproj", "{4B9DE524-88B2-4E3C-A681-A4D87A767136}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,8 +31,15 @@ Global
 		{734E26C8-B132-4216-9484-C4DD008E6435}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734E26C8-B132-4216-9484-C4DD008E6435}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734E26C8-B132-4216-9484-C4DD008E6435}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9DE524-88B2-4E3C-A681-A4D87A767136}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9DE524-88B2-4E3C-A681-A4D87A767136}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9DE524-88B2-4E3C-A681-A4D87A767136}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9DE524-88B2-4E3C-A681-A4D87A767136}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B9DE524-88B2-4E3C-A681-A4D87A767136} = {BCA3BF11-A150-4BB4-85F0-8AD8F832D204}
 	EndGlobalSection
 EndGlobal
