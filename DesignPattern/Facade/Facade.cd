@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Facade.Facade">
+    <Position X="4.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAgAAAAAAQAAAAAAAAAAAAAAAACAAAADAAAAAAAAA=</HashCode>
+      <FileName>Facade.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Facade.SubSystemOne">
+    <Position X="2" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubSystemOne.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Facade.SubSystemTwo">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubSystemTwo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Facade.SubSystemThree">
+    <Position X="5.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubSystemThree.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Facade.SubSystemFour">
+    <Position X="7.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>SubSystemFour.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Facade.Client">
+    <Position X="1" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Facade" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
