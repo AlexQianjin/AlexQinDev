@@ -50,5 +50,6 @@ namespace AlexQinDev.Web.Tests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
     }
 }

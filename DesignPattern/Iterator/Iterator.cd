@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Iterator.Iterator">
+    <Position X="6.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAAAAAQAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Iterator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Iterator.Aggregate">
+    <Position X="2" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Aggregate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Iterator.ConcreteIterator">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAACAAAAAABQAAAAAAAAAAgABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConcreteIterator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Iterator.ConcreteAggregate">
+    <Position X="2" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACCAgAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ConcreteAggregate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Iterator.Client">
+    <Position X="4.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="微软雅黑" Size="9" />
+</ClassDiagram>
