@@ -23,6 +23,10 @@ namespace AlexQinDev.Web.Controllers
             string content = string.Empty;
             ContentResult result = new ContentResult();
 
+            string v = "qianjinq";
+            string r1 = WeiXinUtils.EncryptToSHA1(v);
+            string r2 = WeiXinUtils.SHA1Encrypt(v);
+
             //Articles articles = new Articles();
             //articles.Item.Add(new Article { Title = "xxx", Description = "xxx", PicUrl = "xxx", Url = "xxx" });
             //articles.Item.Add(new Article { Title = "xxx", Description = "xxx", PicUrl = "xxx", Url = "xxx" });
@@ -85,16 +89,35 @@ namespace AlexQinDev.Web.Controllers
             return this.Json(new { Code = 1 }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        [ActionName("ResponseMsg")]
+        public ContentResult ResponseMsgGet(string signature, string timestamp, string nonce, string echostr)
+        {
+            string content = string.Empty;
+            if (WeiXinUtils.CheckSignature(signature, timestamp, nonce, echostr))
+            {
+                content = echostr;
+            }
+
+            ContentResult result = new ContentResult();
+            result.Content = content;
+
+            return result;
+        }
+
         [HttpPost]
-        public ContentResult ResponseMsg()
+        [ActionName("ResponseMsg")]
+        public ContentResult ResponseMsgPost()
         {
             string content = string.Empty;
             //content = Valid();
 
-            int contentLength = this.Request.ContentLength;
-            byte[] buffer = new byte[contentLength];
-            this.Request.InputStream.Read(buffer, 0, contentLength);
-            string xml = System.Text.UTF8Encoding.UTF8.GetString(buffer);
+            //int contentLength = this.Request.ContentLength;
+            //byte[] buffer = new byte[contentLength];
+            //this.Request.InputStream.Read(buffer, 0, contentLength);
+            //string xml = System.Text.UTF8Encoding.UTF8.GetString(buffer);
+
+            string xml = WeiXinUtils.ReadRequest(this.Request);
 
             XElement x = XElement.Parse(xml);
             string type = x.Element("MsgType").Value;
@@ -126,42 +149,18 @@ namespace AlexQinDev.Web.Controllers
             {
                 Articles articles = new Articles();
                 articles.Item.Add(new Article { Title = "小思妹", Description = "女神小思妹", PicUrl = "http://d.pcs.baidu.com/thumbnail/257482481319ad2b04985c8312102721?fid=3204499409-250528-1696172053&time=1389258327&rt=pr&sign=FDTAER-DCb740ccc5511e5e8fedcff06b081203-omPNoA4KS6gX8I3xGyaVPyyGdo8%3D&expires=8h&prisign=RK9dhfZlTqV5TuwkO5ihMQzlM241kT2YfffnCZFTaEPwOxHv/XxtwRXLxDSXMBba1Ms9seOiqT9/QffwI8K2Baw0mmLABRQNl51b/oS8+InqoadADmwcyikKawH2SpzFmVrGREiaH1zZ09BZiFo3CF7dwGcK/xIzj9971pKao/QALkDxW+JJC9zJS3FHk0o7q45NqZXuYZl9ILH8IdNHtKrjHQBSR0Q9&r=682484659&size=c850_u580&quality=100", Url = "http://115.29.47.210/" });
-                SendImageTextMessage sendImageTextMessage = new SendImageTextMessage();
-                sendImageTextMessage.FromUserName = accept.ToUserName;
-                sendImageTextMessage.ToUserName = accept.FromUserName;
-                sendImageTextMessage.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
-                sendImageTextMessage.MsgType = MsgType.News.ToString().ToLower();
-                sendImageTextMessage.ArticleCount = 1;
-                sendImageTextMessage.Articles = articles;
-                result = XmlHelper.XmlSerialize(sendImageTextMessage, System.Text.Encoding.UTF8);
 
-                //SendTextMessage send = new SendTextMessage();
-                //send.FromUserName = accept.ToUserName;
-                //send.ToUserName = accept.FromUserName;
-                //send.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
-                //send.MsgType = MsgType.Text.ToString().ToLower();
-                //send.Content = "女神小思妹";
-                //result = XmlHelper.XmlSerialize(send, System.Text.Encoding.UTF8);
+                result = WeiXinUtils.GetSendImageTextMessage(accept.ToUserName, accept.FromUserName, articles);
             }
             else if (accept.Content.ToString().Trim().Contains("台词"))
             {
-                SendTextMessage send = new SendTextMessage();
-                send.FromUserName = accept.ToUserName;
-                send.ToUserName = accept.FromUserName;
-                send.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
-                send.MsgType = MsgType.Text.ToString().ToLower();
-                send.Content = MovieWord.GetInstance().GetRandomMovieWord();
-                result = XmlHelper.XmlSerialize(send, System.Text.Encoding.UTF8);
+                string content = MovieWord.GetInstance().GetRandomMovieWord();
+                result = WeiXinUtils.GetSendTextMessage(accept.ToUserName, accept.FromUserName, content);
             }
             else
             {
-                SendTextMessage send = new SendTextMessage();
-                send.FromUserName = accept.ToUserName;
-                send.ToUserName = accept.FromUserName;
-                send.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
-                send.MsgType = MsgType.Text.ToString().ToLower();
-                send.Content = "试试发送 美女 或者 台词，有惊喜~";
-                result = XmlHelper.XmlSerialize(send, System.Text.Encoding.UTF8);
+                string content = "试试发送 美女 或者 台词，有惊喜~";
+                result = WeiXinUtils.GetSendTextMessage(accept.ToUserName, accept.FromUserName, content);
             }
 
             return result;
@@ -176,13 +175,8 @@ namespace AlexQinDev.Web.Controllers
             {
                 case "subscribe":
                     AcceptSubscribeEvent accept = XmlHelper.XmlDeserialize<AcceptSubscribeEvent>(xml, System.Text.Encoding.UTF8);
-                    SendTextMessage send = new SendTextMessage();
-                    send.FromUserName = accept.ToUserName;
-                    send.ToUserName = accept.FromUserName;
-                    send.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
-                    send.MsgType = MsgType.Text.ToString().ToLower();
-                    send.Content = "你好！欢迎关注鲁巷骑行,单车带来更多快乐！";
-                    result = XmlHelper.XmlSerialize(send, System.Text.Encoding.UTF8);
+                    string content = "你好！欢迎关注鲁巷骑行,单车带来更多快乐！";
+                    result = WeiXinUtils.GetSendTextMessage(accept.ToUserName, accept.FromUserName, content);
                     break;
                 default:
                     break;

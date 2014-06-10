@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 using AlexQinDev.WeiXin.Model;
+using System.Web;
 
 namespace AlexQinDev.WeiXin.Infrastructure
 {
@@ -38,6 +39,56 @@ namespace AlexQinDev.WeiXin.Infrastructure
             sha1.Clear();
             (sha1 as IDisposable).Dispose();
             return Convert.ToBase64String(str2);
+        }
+
+        /// <summary>
+        /// SHA1加密
+        /// </summary>
+        /// <param name="intput">输入字符串</param>
+        /// <returns>加密后的字符串</returns>
+        public static string SHA1Encrypt(string intput)
+        {
+            byte[] StrRes = Encoding.Default.GetBytes(intput);
+            System.Security.Cryptography.HashAlgorithm mySHA = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+            StrRes = mySHA.ComputeHash(StrRes);
+            StringBuilder EnText = new StringBuilder();
+            foreach (byte Byte in StrRes)
+            {
+                EnText.AppendFormat("{0:x2}", Byte);
+            }
+            return EnText.ToString();
+        }
+
+        /// <summary>
+        /// 检查签名
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static bool CheckSignature(string signature, string timestamp, string nonce, string token)
+        {
+            List<string> list = new List<string>();
+            list.Add(token);
+            list.Add(timestamp);
+            list.Add(nonce);
+            //排序
+            list.Sort();
+            //拼串
+            string input = string.Empty;
+            foreach (var item in list)
+            {
+                input += item;
+            }
+            //加密
+            string new_signature = SHA1Encrypt(input);
+            //验证
+            if (new_signature == signature)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public static DateTime UnixTimeToTime(string timeStamp)
@@ -73,6 +124,30 @@ namespace AlexQinDev.WeiXin.Infrastructure
             WebClient client = new WebClient();
             result = client.UploadString(url, data);
             return result;
+        }
+
+        /// <summary>
+        /// 读取请求对象的内容
+        /// 只能读一次
+        /// </summary>
+        /// <param name="request">HttpRequest对象</param>
+        /// <returns>string</returns>
+        public static string ReadRequest(HttpRequestBase request)
+        {
+            //int contentLength = this.Request.ContentLength;
+            //byte[] buffer = new byte[contentLength];
+            //this.Request.InputStream.Read(buffer, 0, contentLength);
+            //string xml = System.Text.UTF8Encoding.UTF8.GetString(buffer);
+            string reqStr = string.Empty;
+            using (Stream s = request.InputStream)
+            {
+                using (StreamReader reader = new StreamReader(s, Encoding.UTF8))
+                {
+                    reqStr = reader.ReadToEnd();
+                }
+            }
+
+            return reqStr;
         }
 
         #region WinXin Interaction
@@ -124,12 +199,27 @@ namespace AlexQinDev.WeiXin.Infrastructure
         {
             string result = string.Empty;
             SendTextMessage send = new SendTextMessage();
-            send.FromUserName = toUserName;
-            send.ToUserName = fromUserName;
+            send.FromUserName = fromUserName;
+            send.ToUserName = toUserName;
             send.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
             send.MsgType = MsgType.Text.ToString().ToLower();
             send.Content = content;
             result = XmlHelper.XmlSerialize(send, System.Text.Encoding.UTF8);
+
+            return result;
+        }
+
+        public static string GetSendImageTextMessage(MyCDATA fromUserName, MyCDATA toUserName, Articles articles)
+        {
+            string result = string.Empty;
+            SendImageTextMessage sendImageTextMessage = new SendImageTextMessage();
+            sendImageTextMessage.FromUserName = fromUserName;
+            sendImageTextMessage.ToUserName = toUserName;
+            sendImageTextMessage.CreateTime = ConvertDateTimeInt(DateTime.Now).ToString();
+            sendImageTextMessage.MsgType = MsgType.News.ToString().ToLower();
+            sendImageTextMessage.ArticleCount = articles.Item.Count;
+            sendImageTextMessage.Articles = articles;
+            result = XmlHelper.XmlSerialize(sendImageTextMessage, System.Text.Encoding.UTF8);
 
             return result;
         }
