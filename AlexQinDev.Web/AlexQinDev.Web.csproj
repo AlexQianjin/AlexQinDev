@@ -232,6 +232,10 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AlexQinDev.WeiXin.Service\AlexQinDev.WeiXin.Service.csproj">
+      <Project>{d51efbd1-97c3-4050-be79-834360b0f2e6}</Project>
+      <Name>AlexQinDev.WeiXin.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AlexQinDev.WeiXin\AlexQinDev.WeiXin.csproj">
       <Project>{734e26c8-b132-4216-9484-c4dd008e6435}</Project>
       <Name>AlexQinDev.WeiXin</Name>

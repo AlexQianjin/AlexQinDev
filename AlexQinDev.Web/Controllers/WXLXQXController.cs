@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 
 using AlexQinDev.WeiXin.Infrastructure;
 using AlexQinDev.WeiXin.Model;
+using AlexQinDev.WeiXin.Service.Interfaces;
+using AlexQinDev.WeiXin.Service;
 
 namespace AlexQinDev.Web.Controllers
 {
@@ -119,19 +121,22 @@ namespace AlexQinDev.Web.Controllers
 
             string xml = WeiXinUtils.ReadRequest(this.Request);
 
-            XElement x = XElement.Parse(xml);
-            string type = x.Element("MsgType").Value;
-            switch (type)
-            {
-                case "text":
-                    content = ResponseText(xml);
-                    break;
-                case "event":
-                    content = ResponseEvent(xml);
-                    break;
-                default:
-                    break;
-            }
+            //XElement x = XElement.Parse(xml);
+            //string type = x.Element("MsgType").Value;
+            //switch (type)
+            //{
+            //    case "text":
+            //        content = ResponseText(xml);
+            //        break;
+            //    case "event":
+            //        content = ResponseEvent(xml);
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+            IResponse response = ResponseFactory.Create(xml);
+            content = response.GetResponse(xml);
 
             ContentResult result = new ContentResult();
             result.Content = content;

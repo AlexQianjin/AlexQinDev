@@ -13,16 +13,8 @@ namespace AlexQinDev.WeiXin.Model
     /// </summary>
     [Serializable]
     [XmlType("xml")]
-    public class AcceptLocationEvent
+    public class AcceptLocationEvent : AcceptMessage
     {
-        public MyCDATA ToUserName { get; set; }
-
-        public MyCDATA FromUserName { get; set; }
-
-        public string CreateTime { get; set; }
-
-        public MyCDATA MsgType { get; set; }
-
         public MyCDATA Event { get; set; }
 
         public string Latitude { get; set; }
