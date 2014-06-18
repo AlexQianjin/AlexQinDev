@@ -12,6 +12,8 @@ namespace AlexQinDev.WeiXin.Model
     [XmlType("xml")]
     public class AcceptImageMessage : AcceptMessage
     {
+        public MyCDATA PicUrl1 { get; set; }
+
         public MyCDATA PicUrl { get; set; }
 
         public MyCDATA MediaId { get; set; }
